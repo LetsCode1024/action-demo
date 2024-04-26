@@ -30,15 +30,15 @@ jobs:
           docker image ls
           echo ---- docker image load from cache ----
           docker image load --input /tmp/img.tar
-          echo ---- docker image retag ----
-          docker image tag express-app-img express-app-img-cache
-          docker image rm express-app-img
-          echo ---- docker image ls after load ----
-          docker image ls
-          echo ---- docker image build from cache ----
-          docker image build -t express-app-img --cache-from express-app-img-cache . 
-          echo ---- docker image history ----
-          docker image history express-app-img
+          # echo ---- docker image retag ----
+          # docker image tag express-app-img express-app-img-cache
+          # docker image rm express-app-img
+          # echo ---- docker image ls after load ----
+          # docker image ls
+          # echo ---- docker image build from cache ----
+          # docker image build -t express-app-img --cache-from express-app-img-cache . 
+          # echo ---- docker image history ----
+          # docker image history express-app-img
           echo ---- docker image ls after build ----
           docker image ls
       - name: Build Docker Image 
