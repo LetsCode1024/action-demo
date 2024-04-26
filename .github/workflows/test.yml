@@ -24,7 +24,7 @@ jobs:
           path: /tmp/img.tar
           key: docker-img-cache
       - name: Load Docker Image Cache
-        if: steps.docker-img-cache.cache-hit == 'true'
+        if: steps.docker-img-cache.outputs.cache-hit == 'true'
         run: |
           echo ---- docker image load from cache ----
           docker image load /tmp/img.tar
