@@ -37,6 +37,7 @@ jobs:
           echo ---- docker image build ----
           docker image build -t express-app-img . 
       - name: Save Docker image 
+        run: |
           echo ---- docker image save ----
           docker image save --output /tmp/img.tar express-app-img
       - name: Run Docker Container
