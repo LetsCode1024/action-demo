@@ -27,7 +27,7 @@ jobs:
         if: steps.docker-img-cache.outputs.cache-hit == 'true'
         run: |
           echo ---- docker image load from cache ----
-          docker image load /tmp/img.tar
+          docker image load --input /tmp/img.tar
           echo ---- docker image retag ----
           docker image tag express-app-img express-app-img-cache
           docker image rm express-app-img
