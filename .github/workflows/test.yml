@@ -26,7 +26,7 @@ jobs:
           echo ---- ls ----
           ls
           echo ---- docker image import ----
-          docker image import img.tar
+          docker image import img.tar express-app-img
           echo ---- docker image ls ----
           docker image ls
           echo ---- ls ----
