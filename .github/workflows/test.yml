@@ -19,8 +19,13 @@ jobs:
         run: npm ci
       - name: Build Docker Image
         run: |
+          echo ---- docker image build ----
           docker image build -t express-app-img -o type=tar,dest=img.tar . 
+          echo ---- docker image ls ----
           docker image ls
+          echo ---- ls ----
+          ls
+          echo ---- docker image load ----
           docker image load --input img.tar
       - name: Run Docker Image
         run: docker container run -d --rm --name express-app -p 3000:3000 express-app-img
