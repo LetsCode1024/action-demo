@@ -15,9 +15,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # - name: Setup Docker BuildKit
-      #   run: |
-      #     echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -35,19 +32,6 @@ jobs:
           restore-keys: ${{ runner.os }}-node-
       - name: Install Dependencies
         run: npm ci
-      # - name: Cache Docker Layers 
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: /tmp/.buildx-cache
-      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-buildx-
-      # - name: Build Docker Image 
-      #   run: |
-      #     echo ---- docker image build ----
-      #     DOCKER_BUILDKIT=1 docker buildx build -t express-app-img . \
-      #       --cache-from=type=local,src=/tmp/.buildx-cache \
-      #       --cache-to=type=local,dest=/tmp/.buildx-cache-new
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v3
       - name: Build Docker Image
@@ -66,7 +50,3 @@ jobs:
         run: docker container run -d --rm --name $DOCKER_CONTAINER_NAME -p 3000:3000 $DOCKER_IMG_TAG
       - name: Test
         run: npm test 
-      # - name: Move New Docker Cache
-      #   run: |
-      #     rm -rf /tmp/.buildx-cache
-      #     mv /tmp/.buildx-cache-new /tmp/.buildx-cache
