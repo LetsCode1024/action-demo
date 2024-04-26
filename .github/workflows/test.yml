@@ -23,16 +23,22 @@ jobs:
         with:
           path: /tmp/img.tar
           key: docker-img-cache
-      - name: Load Docker Image Cache
+      - name: Load Docker Image Cache and Build
         if: steps.docker-img-cache.outputs.cache-hit == 'true'
         run: |
+          echo ---- docker image ls before load ----
+          docker image ls
           echo ---- docker image load from cache ----
           docker image load --input /tmp/img.tar
           echo ---- docker image retag ----
           docker image tag express-app-img express-app-img-cache
           docker image rm express-app-img
+          echo ---- docker image ls after load ----
           docker image ls
+          echo ---- docker image build from cache ----
+          docker image build -t express-app-img --cache-from express-app-img-cache . 
       - name: Build Docker Image 
+        if: steps.docker-img-cache.outputs.cache-hit != 'true'
         run: |
           echo ---- docker image build ----
           docker image build -t express-app-img . 
