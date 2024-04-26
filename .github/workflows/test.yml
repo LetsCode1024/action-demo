@@ -20,13 +20,9 @@ jobs:
       - name: Build Docker Image
         run: |
           echo ---- docker image build ----
-          docker image build -t express-app-img -o type=tar,dest=img.tar . 
-          echo ---- docker image ls ----
-          docker image ls
-          echo ---- ls ----
-          ls
-          echo ---- docker image import ----
-          docker image import --change 'CMD ["node", "src/app"]' img.tar express-app-img
+          docker image build -t express-app-img . 
+          echo ---- docker image save ----
+          docker image save --output img.tar epress-app-img
           echo ---- docker image ls ----
           docker image ls
           echo ---- ls ----
