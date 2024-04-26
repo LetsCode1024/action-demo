@@ -31,24 +31,34 @@ jobs:
           restore-key: ${{ runner.os }}-node-
       - name: Install Dependencies
         run: npm ci
-      - name: Cache Docker Layers 
-        uses: actions/cache@v4
+      # - name: Cache Docker Layers 
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: /tmp/.buildx-cache
+      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-buildx-
+      # - name: Build Docker Image 
+      #   run: |
+      #     echo ---- docker image build ----
+      #     DOCKER_BUILDKIT=1 docker buildx build -t express-app-img . \
+      #       --cache-from=type=local,src=/tmp/.buildx-cache \
+      #       --cache-to=type=local,dest=/tmp/.buildx-cache-new
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build Docker Image
+        id: docker-build
+        uses: docker/build-push-action@v5
         with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-      - name: Build Docker Image 
-        run: |
-          echo ---- docker image build ----
-          DOCKER_BUILDKIT=1 docker buildx build -t express-app-img . \
-            --cache-from=type=local,src=/tmp/.buildx-cache \
-            --cache-to=type=local,dest=/tmp/.buildx-cache-new
+          context: .
+          tags: express-app-img
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       - name: Run Docker Container
         run: docker container run -d --rm --name express-app -p 3000:3000 express-app-img
       - name: Test
         run: npm test 
-      - name: Move New Docker Cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+      # - name: Move New Docker Cache
+      #   run: |
+      #     rm -rf /tmp/.buildx-cache
+      #     mv /tmp/.buildx-cache-new /tmp/.buildx-cache
