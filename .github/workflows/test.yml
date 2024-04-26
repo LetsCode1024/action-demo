@@ -59,9 +59,12 @@ jobs:
           load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: List Docker Image
+        run: |
+          docker image ls
       - name: Run Docker Container
-        run: docker container run -d --rm --name $DOCKER_CONTAINER_NAME \ 
-                -p 3000:3000 $DOCKER_IMG_TAG
+        run: docker container run -d --rm --name express-app \ 
+                -p 3000:3000 express-app-img 
       - name: Test
         run: npm test 
       # - name: Move New Docker Cache
