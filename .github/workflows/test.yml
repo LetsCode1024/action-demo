@@ -41,7 +41,7 @@ jobs:
       - name: Build Docker Image 
         run: |
           echo ---- docker image build ----
-          docker builderx build -t express-app-img . \
+          docker buildx build -t express-app-img . \
             --cache-from=type=local,src=/tmp/.buildx-cache \
             --cache-to=type=local,dest=/tmp/.buildx-cache-new
       - name: Run Docker Container
