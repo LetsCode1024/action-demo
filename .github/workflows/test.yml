@@ -5,6 +5,10 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  DOCKER_IMG_TAG: express-app-img
+  DOCKER_CONTAINER_NAME: express-app
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -51,11 +55,13 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          tags: express-app-img
+          tags: ${{ env.DOCKER_IMG_TAG }} 
+          load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Run Docker Container
-        run: docker container run -d --rm --name express-app -p 3000:3000 express-app-img
+        run: docker container run -d --rm --name ${{ env.DOCKER_CONTAINER_NAME }} \ 
+                -p 3000:3000 ${{ env.DOCKER_IMG_TAG }} 
       - name: Test
         run: npm test 
       # - name: Move New Docker Cache
