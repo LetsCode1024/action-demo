@@ -37,6 +37,10 @@ jobs:
           docker image ls
           echo ---- docker image build from cache ----
           docker image build -t express-app-img --cache-from express-app-img-cache . 
+          echo ---- docker image history ----
+          docker image history express-app-img
+          echo ---- docker image ls after build ----
+          docker image ls
       - name: Build Docker Image 
         if: steps.docker-img-cache.outputs.cache-hit != 'true'
         run: |
