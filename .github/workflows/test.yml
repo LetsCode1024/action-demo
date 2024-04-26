@@ -25,8 +25,8 @@ jobs:
           docker image ls
           echo ---- ls ----
           ls
-          echo ---- docker image load ----
-          docker image load --input img.tar
+          echo ---- docker image import ----
+          docker image import img.tar
       - name: Run Docker Image
         run: docker container run -d --rm --name express-app -p 3000:3000 express-app-img
       - name: Test
