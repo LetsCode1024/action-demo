@@ -9,6 +9,8 @@ env:
   DOCKER_IMG_TAG: express-app-img
   DOCKER_CONTAINER_NAME: express-app
   DOCKER_IMG_FILENAME: img.tar
+  DOCKER_CACHE_DIR: /tmp/.buildx-cache
+  DOCKER_CACHE_DIR_TMP: /tmp/.buildx-cache-new
 
 jobs:
   test:
@@ -39,15 +41,14 @@ jobs:
         id: cache-docker-layers
         uses: actions/cache@v4
         with:
-          # path: /tmp/buildx-cache.tar
-          path: /tmp/.buildx-cache
+          path: ${{ env.DOCKER_CACHE_DIR }} 
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
       - name: List Docker Cache Content
         run: |
-          if [ -d /tmp/.buildx-cache ]; then 
-            ls -l /tmp/.buildx-cache
+          if [ -d $DOCKER_CACHE_DIR ]; then 
+            ls -l $DOCKER_CACHE_DIR 
           fi
       - name: Build Docker Image
         id: docker-build
@@ -56,8 +57,8 @@ jobs:
           context: .
           tags: ${{ env.DOCKER_IMG_TAG }} 
           load: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+          cache-from: type=local,src=$DOCKER_CACHE_DIR 
+          cache-to: type=local,dest=$DOCKER_CACHE_DIR_TMP,mode=max
       - name: List Docker Image
         run: docker image ls
       - name: Save Docker Image
@@ -80,6 +81,6 @@ jobs:
         run: npm test 
       - name: Move Cache
         run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          rm -rf $DOCKER_CACHE_DIR 
+          mv $DOCKER_CACHE_DIR $DOCKER_CACHE_DIR_TMP
 
