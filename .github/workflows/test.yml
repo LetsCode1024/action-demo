@@ -57,8 +57,8 @@ jobs:
           context: .
           tags: ${{ env.DOCKER_IMG_TAG }} 
           load: true
-          cache-from: type=local,src=$DOCKER_CACHE_DIR 
-          cache-to: type=local,dest=$DOCKER_CACHE_DIR_TMP,mode=max
+          cache-from: type=local,src=${{ env.DOCKER_CACHE_DIR }}
+          cache-to: type=local,dest=${{ env.DOCKER_CACHE_DIR_TMP }},mode=max
       - name: List Docker Image
         run: docker image ls
       - name: Save Docker Image
