@@ -43,7 +43,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
       - name: Extract Docker Cache
-        run: [ -f /tmp/buildx-cache.tar ] && tar -xf /tmp/buildx-cache.tar -C /tmp/.buildx-cache
+        run: [ -f "/tmp/buildx-cache.tar" ] && tar -xf /tmp/buildx-cache.tar -C /tmp/.buildx-cache
       - name: Build Docker Image
         id: docker-build
         uses: docker/build-push-action@v5
