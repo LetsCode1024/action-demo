@@ -82,5 +82,5 @@ jobs:
       - name: Move Cache
         run: |
           rm -rf $DOCKER_CACHE_DIR 
-          mv $DOCKER_CACHE_DIR $DOCKER_CACHE_DIR_TMP
+          mv $DOCKER_CACHE_DIR_TMP $DOCKER_CACHE_DIR
 
