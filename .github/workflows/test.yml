@@ -44,7 +44,7 @@ jobs:
             ${{ runner.os }}-buildx-
       - name: Extract Docker Cache
         if: ${{ steps.cache-docker-layers.outputs.cache-hit == 'true' }}
-        run: tar -xf /tmp/buildx-cache.tar /tmp/.buildx-cache
+        run: tar -xf /tmp/buildx-cache.tar -C /tmp/.buildx-cache
       - name: Build Docker Image
         id: docker-build
         uses: docker/build-push-action@v5
