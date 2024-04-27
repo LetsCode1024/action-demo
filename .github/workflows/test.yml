@@ -75,7 +75,7 @@ jobs:
       - name: List Docker Container
         run: docker container ls
       - name: Wait for App Server
-        run: sleep 10 
+        run: sleep 6 
       - name: Test
         run: npm test 
       - name: Move Cache
