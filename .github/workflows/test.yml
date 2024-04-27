@@ -45,7 +45,7 @@ jobs:
       - name: Extract Docker Cache
         run: |
           echo ======= ls /tmp =========
-          ls /tmp
+          ls -l /tmp
           echo ======= mkdir /tmp/.buildx-cache =========
           mkdir /tmp/.buildx-cache
           echo ======= extract =========
@@ -53,9 +53,9 @@ jobs:
       - name: List Docker Cache Content
         run: |
           echo ======= ls /tmp/.buildx-cache =========
-          ls /tmp/.buildx-cache
+          ls -l /tmp/.buildx-cache
           echo ======= ls /tmp/.buildx-cache/tmp =========
-          ls /tmp/.buildx-cache/tmp
+          ls -l /tmp/.buildx-cache/tmp
       - name: Build Docker Image
         id: docker-build
         uses: docker/build-push-action@v5
