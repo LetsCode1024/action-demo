@@ -46,6 +46,9 @@ jobs:
         run: |
           mkdir /tmp/.buildx-cache
           [ -f /tmp/buildx-cache.tar ] && tar -xf /tmp/buildx-cache.tar -C /tmp/.buildx-cache
+      - name: List Docker Cache Content
+        run: |
+          ls /tmp/.buildx-cache
       - name: Build Docker Image
         id: docker-build
         uses: docker/build-push-action@v5
