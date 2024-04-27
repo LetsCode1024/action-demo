@@ -54,7 +54,7 @@ jobs:
           tags: ${{ env.DOCKER_IMG_TAG }} 
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
       - name: List Docker Image
         run: |
           docker image ls
