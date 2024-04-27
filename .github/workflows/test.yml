@@ -51,12 +51,10 @@ jobs:
       #     mkdir /tmp/.buildx-cache
       #     echo ======= extract =========
       #     [ -f /tmp/buildx-cache.tar ] && echo cache exists && tar -xf /tmp/buildx-cache.tar -C /tmp/.buildx-cache
-      # - name: List Docker Cache Content
-      #   run: |
-      #     echo ======= ls /tmp/.buildx-cache =========
-      #     [ -e /tmp/.buildx-cache ] && ls -l /tmp/.buildx-cache
-      #     echo ======= ls /tmp/.buildx-cache/tmp =========
-      #     [ -e /tmp/.buildx-cache/tmp ] && ls -l /tmp/.buildx-cache/tmp
+      - name: List Docker Cache Content
+        run: |
+          echo ======= ls /tmp/.buildx-cache =========
+          [ -e /tmp/.buildx-cache ] && ls -l /tmp/.buildx-cache
       - name: Build Docker Image
         id: docker-build
         uses: docker/build-push-action@v5
