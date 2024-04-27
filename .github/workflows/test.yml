@@ -8,6 +8,7 @@ on:
 env:
   DOCKER_IMG_TAG: express-app-img
   DOCKER_CONTAINER_NAME: express-app
+  DOCKER_IMG_FILENAME: img.tar
 
 jobs:
   test:
@@ -57,6 +58,16 @@ jobs:
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+      - name: List Docker Image
+        run: docker image ls
+      - name: Save Docker Image
+        run: docker image save -o $DOCKER_IMG_FILENAME $DOCKER_IMG_TAG
+      - name: Remove Docker Image
+        run: docker image rm $DOCKER_IMG_TAG
+      - name: List Docker Image
+        run: docker image ls
+      - name: Load Docker Image
+        run: docker image load 
       - name: List Docker Image
         run: docker image ls
       - name: Run Docker Container
