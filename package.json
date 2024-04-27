@@ -7,7 +7,6 @@
 		"start": "node src/index.js",
 		"test": "jest"
   },
-	"greet": "hello",
   "keywords": [],
   "author": "",
   "license": "ISC",
