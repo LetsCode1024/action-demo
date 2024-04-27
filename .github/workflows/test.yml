@@ -45,7 +45,7 @@ jobs:
       - name: Extract Docker Cache
         run: |
           mkdir /tmp/.buildx-cache
-          [ -f /tmp/buildx-cache.tar ] && tar -xf /tmp/buildx-cache.tar -C /tmp/.buildx-cache
+          [ -f /tmp/buildx-cache.tar ] && echo cache exists && tar -xf /tmp/buildx-cache.tar -C /tmp/.buildx-cache
       - name: List Docker Cache Content
         run: |
           ls /tmp/.buildx-cache
