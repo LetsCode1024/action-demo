@@ -61,7 +61,7 @@ jobs:
         #   cache-from: type=local,src=${{ env.DOCKER_CACHE_DIR }}
         #   cache-to: type=local,dest=${{ env.DOCKER_CACHE_DIR_TMP }},mode=max
         run: |
-          docker buildx build \
+          docker buildx build . \
             -t $DOCKER_IMG_TAG \
             --cache-from type=local,src=$DOCKER_CACHE_DIR \
             --cache-to type=local,dest=$DOCKER_CACHE_DIR_TMP \
