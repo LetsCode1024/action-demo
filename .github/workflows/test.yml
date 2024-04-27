@@ -64,7 +64,7 @@ jobs:
         run: npm test 
       - name: Move Cache
         run: |
-          rm /tmp/.buildx-cache
+          rm -rf /tmp/.buildx-cache
           mv /tmp/.build-cache-new /tmp/.buildx-cache
           tar -cf /tmp/buildx-cache.tar /tmp/.buildx-cache
 
