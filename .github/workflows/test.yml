@@ -67,7 +67,7 @@ jobs:
       - name: List Docker Image
         run: docker image ls
       - name: Load Docker Image
-        run: docker image load 
+        run: docker image load -i $DOCKER_IMG_FILENAME
       - name: List Docker Image
         run: docker image ls
       - name: Run Docker Container
