@@ -44,11 +44,18 @@ jobs:
             ${{ runner.os }}-buildx-
       - name: Extract Docker Cache
         run: |
+          echo ======= ls /tmp =========
+          ls /tmp
+          echo ======= mkdir /tmp/.buildx-cache =========
           mkdir /tmp/.buildx-cache
+          echo ======= extract =========
           [ -f /tmp/buildx-cache.tar ] && echo cache exists && tar -xf /tmp/buildx-cache.tar -C /tmp/.buildx-cache
       - name: List Docker Cache Content
         run: |
+          echo ======= ls /tmp/.buildx-cache =========
           ls /tmp/.buildx-cache
+          echo ======= ls /tmp/.buildx-cache/tmp =========
+          ls /tmp/.buildx-cache/tmp
       - name: Build Docker Image
         id: docker-build
         uses: docker/build-push-action@v5
