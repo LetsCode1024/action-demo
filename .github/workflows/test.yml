@@ -54,7 +54,9 @@ jobs:
       - name: List Docker Cache Content
         run: |
           echo ======= ls /tmp/.buildx-cache =========
-          [ -d /tmp/.buildx-cache ] && ls -l /tmp/.buildx-cache
+          if [ -d /tmp/.buildx-cache ]; then 
+            ls -l /tmp/.buildx-cache
+          fi
       - name: Build Docker Image
         id: docker-build
         uses: docker/build-push-action@v5
